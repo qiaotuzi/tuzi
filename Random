@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>队伍抽签结果</title>
+</head>
+<body>
+    <h1>队伍抽签结果</h1>
+    <button onclick="generateTeams()">开始抽签</button>
+    <div id="teams"></div>
+
+    <script>
+        // 定义选手分类
+        const categories = {
+            "A": ["领头羊", "顾老师", "兔子", "包子", "w", "路"],
+            "B": ["锅贴", "居丛", "远方", "船长", "弥猴桃", "虎兄"],
+            "C": ["大拿", "馄饨", "赵", "缘安", "WKT", "伙计"],
+            "D": ["快乐加倍", "牛牛", "9932", "小芸", "王律", "狗姐"],
+            "E": ["Allen", "光芒", "半夏", "朱大虾", "98K", "度哥"]
+        };
+
+        function generateTeams() {
+            // 对每个类别进行随机排列
+            for (const cat in categories) {
+                categories[cat].sort(() => Math.random() - 0.5);
+            }
+
+            // 创建6支队伍
+            let teams = [];
+            for (let i = 0; i < 6; i++) {
+                teams[i] = [];
+                for (const cat in categories) {
+                    teams[i].push(`${cat}类:${categories[cat][i]}`);
+                }
+            }
+
+            // 展示抽签结果
+            let teamsHtml = "";
+            for (let i = 0; i < teams.length; i++) {
+                teamsHtml += `<h2>队伍${i + 1}成员：</h2><ul>`;
+                for (const member of teams[i]) {
+                    teamsHtml += `<li>${member}</li>`;
+                }
+                teamsHtml += "</ul>";
+            }
+            document.getElementById("teams").innerHTML = teamsHtml;
+        }
+    </script>
+</body>
+</html>
